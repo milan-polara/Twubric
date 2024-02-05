@@ -1,0 +1,78 @@
+<div class="card">
+    <p-dataView #dv [value]="products" filterBy="fullname" [sortField]="sortField" [sortOrder]="sortOrder"
+        layout="grid">
+        <ng-template pTemplate="header">
+            <p-accordion [activeIndex]="0">
+                <p-accordionTab>
+                    <ng-template pTemplate="header">
+                        <div class="flex align-items-center">
+                            <span class="vertical-align-middle">Sort By</span>
+                            <i class="pi pi-sort ml-4" (click)="onSortChange($event)"></i>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="content">
+                        <span class="p-input-icon-left mb-2 md:mb-0 mx-2">
+                            <i class="pi pi-search"></i>
+                            <input type="search" pInputText placeholder="Search by Twubric Score"
+                                (input)="onFilter($any($event.target).value,'total')">
+                        </span>
+                        <span class="p-input-icon-left mb-2 md:mb-0 mx-2">
+                            <i class="pi pi-search"></i>
+                            <input type="search" pInputText placeholder="Search by Friends"
+                                (input)="onFilter($any($event.target).value,'friends')">
+                        </span>
+                        <span class="p-input-icon-left mb-2 md:mb-0 mx-2">
+                            <i class="pi pi-search"></i>
+                            <input type="search" pInputText placeholder="Search by Influence"
+                                (input)="onFilter($any($event.target).value,'influence')">
+                        </span>
+                        <span class="p-input-icon-left mb-2 md:mb-0 mx-2">
+                            <i class="pi pi-search"></i>
+                            <input type="search" pInputText placeholder="Search by Chirpiness"
+                                (input)="onFilter($any($event.target).value, 'chirpiness')">
+                        </span>
+                        <span class="p-input-icon-left mb-2 md:mb-0 mx-2">
+                            <label for=""> Select Date Range </label>
+                            <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [showClear]="true" (onClear)="onClearDate()" (onSelect)="onSelectDate()"></p-calendar>
+                        </span>
+                    </ng-template>
+                </p-accordionTab>
+            </p-accordion>
+        </ng-template>
+        <ng-template let-product pTemplate="gridItem">
+            <div class="col-12 md:col-3">
+                <div class="product-grid-item card">
+                    <div class="product-grid-item-top">
+                        <div>
+                            <i class="pi pi-tag product-category-icon"></i>
+                            <span class="product-category">{{product.fullname}}</span>
+                        </div>
+                        <span class="product-category">{{product.twubric.total}}</span>
+                    </div>
+                    <div class="product-grid-item-content">
+                        <img class="w-3 shadow-2 border-round" [src]="product.image" [alt]="product.name" />
+                        <div class="text-2xl font-bold">{{ product.username }}</div>
+                        <div class="mt-2">
+                            <table style="display: inline-table;">
+                                <tr>
+                                    <th>{{ product.twubric.friends }}</th>
+                                    <th>{{ product.twubric.influence }}</th>
+                                    <th>{{ product.twubric.chirpiness }}</th>
+                                </tr>
+                                <tr>
+                                    <td>friends</td>
+                                    <td>influence</td>
+                                    <td>chirpiness</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="product-grid-item-bottom mt-2">
+                        <span class="product-price">{{product.join_date | date}}</span>
+                        <p-button icon="pi pi-times" [rounded]="true" severity="danger"></p-button>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-dataView>
+</div>
