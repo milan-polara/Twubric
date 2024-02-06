@@ -1,5 +1,5 @@
 <div class="card">
-    <p-dataView #dv [value]="products" filterBy="fullname" [sortField]="sortField" [sortOrder]="sortOrder"
+    <p-dataView #dv [value]="products" filterBy="fullname"
         layout="grid">
         <ng-template pTemplate="header">
             <p-accordion [activeIndex]="0">
@@ -7,7 +7,7 @@
                     <ng-template pTemplate="header">
                         <div class="flex align-items-center">
                             <span class="vertical-align-middle">Sort By</span>
-                            <i class="pi pi-sort ml-4" (click)="onSortChange($event)"></i>
+                            <i class="pi pi-sort ml-4" (click)="onSortChange('accending')"></i>
                         </div>
                     </ng-template>
                     <ng-template pTemplate="content">
@@ -69,7 +69,7 @@
                     </div>
                     <div class="product-grid-item-bottom mt-2">
                         <span class="product-price">{{product.join_date | date}}</span>
-                        <p-button icon="pi pi-times" [rounded]="true" severity="danger"></p-button>
+                        <p-button icon="pi pi-times" [rounded]="true" severity="danger" (click)="deleteData(product)"></p-button>
                     </div>
                 </div>
             </div>

@@ -8,18 +8,8 @@ import { PrimeNGConfig } from 'primeng/api';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-    onSortChange($event: MouseEvent) {
-        throw new Error('Method not implemented.');
-    }
+
     products!: any[];
-
-    sortOptions!: SelectItem[];
-
-    sortOrder!: number;
-
-    sortField!: string;
-
-    sortKey!: any
     storeProduct: any = []
     rangeDates!: Date[];
 
@@ -162,7 +152,9 @@ export class AppComponent {
     }
 
     onSelectDate() {
-        if (this.rangeDates && this.rangeDates.length == 2) {
+        let startDate = this.rangeDates[0]
+        let endDate = this.rangeDates[1]
+        if (startDate && endDate) {
             this.products = this.storeProduct.filter((product: any) => (new Date(product.join_date)) >= new Date(this.rangeDates[0]) && (new Date(product.join_date)) <= new Date(this.rangeDates[1]))
         }
     }
@@ -192,7 +184,20 @@ export class AppComponent {
     }
 
     onClearDate() {
-        console.log("call")
         this.products = this.storeProduct
+    }
+
+    onSortChange(value: any) {
+        this.products = this.products.sort((a, b) => {
+            if (value == 'accending')
+                return -1;
+            else
+                return 1;
+            return 0;
+        })
+    }
+
+    deleteData(data: any) {
+        this.products = this.products.filter((val: any) => val.uid != data.uid)
     }
 }
